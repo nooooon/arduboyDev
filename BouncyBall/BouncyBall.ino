@@ -2,10 +2,11 @@
 
 Arduboy ab;
 
-int dx = -1;
-int dy = -1;
+int dx = 1;
+int dy = 1;
 int xb;
 int yb;
+byte boardPosX;
 
 
 void setup() {
@@ -15,6 +16,7 @@ void setup() {
 
   xb = 10;
   yb = 20;
+  boardPosX = 10;
 }
 
 void loop() {
@@ -27,6 +29,7 @@ void loop() {
   ab.clear();
   
   drawBall();
+  drawBoard();
   moveBall();
 
   ab.display();
@@ -37,6 +40,10 @@ void drawBall(){
   ab.drawPixel(xb+1, yb,   1);
   ab.drawPixel(xb,   yb+1, 1);
   ab.drawPixel(xb+1, yb+1, 1);
+}
+
+void drawBoard(){
+  ab.drawRect(boardPosX, 63, 11, 1, 1);
 }
 
 void moveBall(){
@@ -68,5 +75,15 @@ void moveBall(){
     xb = WIDTH - 2;
     dx = -dx;
   }
+
+
+  if(ab.pressed(RIGHT_BUTTON)){
+    boardPosX++;
+  }
+
+  if(ab.pressed(LEFT_BUTTON)){
+    boardPosX--;
+  }
+  
 }
 
